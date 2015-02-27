@@ -21,7 +21,7 @@ DlgLogin::DlgLogin(QWidget *parent) :
     this->setFont(font);
     this->setPalette(palette);
     this->setAutoFillBackground(true);
-    this->setFixedSize(467,469);
+    this->setFixedSize(541,557);
 }
 
 DlgLogin::~DlgLogin()
