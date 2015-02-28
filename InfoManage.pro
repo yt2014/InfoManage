@@ -21,3 +21,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     dlglogin.ui
+
+OTHER_FILES += \
+    army.PNG

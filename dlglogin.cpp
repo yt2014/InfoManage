@@ -7,6 +7,21 @@ DlgLogin::DlgLogin(QWidget *parent) :
     ui(new Ui::DlgLogin)
 {
     ui->setupUi(this);
+
+
+    QPalette palette;
+    palette.setColor(QPalette::Background, QColor(192,253,123));
+    palette.setBrush(QPalette::Background, QBrush(QPixmap("army.png")));
+
+    QFont font;
+    font.setBold(true);
+    font.setFamily("Courier");
+    font.setPointSize(14);
+
+    this->setFont(font);
+    this->setPalette(palette);
+    this->setAutoFillBackground(true);
+    this->setFixedSize(541,557);
 }
 
 DlgLogin::~DlgLogin()
