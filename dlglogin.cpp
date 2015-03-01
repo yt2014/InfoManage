@@ -22,6 +22,18 @@ DlgLogin::DlgLogin(QWidget *parent) :
     this->setPalette(palette);
     this->setAutoFillBackground(true);
     this->setFixedSize(541,557);
+
+    QPalette pe;
+    pe.setColor(QPalette::WindowText,Qt::yellow);
+    //label->setPalette(pe);
+    font.setPointSize(24);
+
+    this->ui->label_thesis->setFont(font);
+    this->ui->label_thesis->setPalette(pe);
+
+    this->ui->lineEdit_User->setWindowIcon(QIcon(QPixmap("award.ico")));
+    this->ui->label_thesis->setWindowIcon(QIcon(QPixmap("award.ico")));
+    this->setWindowFlags(Qt::FramelessWindowHint);
 }
 
 DlgLogin::~DlgLogin()
@@ -68,7 +80,7 @@ void DlgLogin::on_PushBtnOK_clicked()
     else
     {
             // QTextCodec::setCodecForTr( QTextCodec::codecForName("GBK") );
-              QMessageBox::warning(this,tr("warning"),tr("username or password are not correct!"),QMessageBox::Yes);
+              QMessageBox::warning(this,tr("warning"),tr("username or password are not correct!"),QMessageBox::Ok);
               this->ui->lineEdit_User->clear();
               this->ui->lineEdit_Pwd->clear();
               //reject();
