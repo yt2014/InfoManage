@@ -6,6 +6,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QGraphicsScene scene;
+
+    scene.addPixmap(QPixmap("award.ico"));
+
+    QGraphicsView *view = new QGraphicsView(&scene,0);
+
+    view->show();
+
+   // ui->graphicsView->setScene(&scene);
+
 }
 
 MainWindow::~MainWindow()
