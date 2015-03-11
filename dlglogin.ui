@@ -116,6 +116,25 @@
      <width>24.000000000000000</width>
      <height>24.000000000000000</height>
     </rectf>
+    </property>
+   </widget>
+  <widget class="QLabel" name="label_thesis">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>541</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>九大队人才管理信息系统</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

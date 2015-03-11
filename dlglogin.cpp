@@ -22,28 +22,18 @@ DlgLogin::DlgLogin(QWidget *parent) :
     this->setPalette(palette);
     this->setAutoFillBackground(true);
     this->setFixedSize(541,557);
+
     this->setWindowFlags(Qt::FramelessWindowHint);
 
-   /* QGraphicsScene scene;
-    scene.setSceneRect(ui->graphicsView->sceneRect());
-    scene.addPixmap(QPixmap("login_user24x24.png"));
-    this->ui->graphicsView->setScene(&scene);
-    this->ui->graphicsView->show();
-    */
-    //palette.setBrush(QPalette::Background, QBrush(QPixmap("login_user24x24.png")));
-    //this->ui->graphicsView->setBackgroundBrush(QPixmap("login_user24x24.png"));
 
     QGraphicsScene scene;
     scene.addText("GraphicsView rotated clockwise");
 
-   // QGraphicsView view(&scene);
     this->ui->graphicsView->setScene(&scene);
-   // view.rotate(90); // the text is rendered with a 90 degree clockwise rotation
-   // view.show();
 
     ui->graphicsView->show();
 
-          //  setBackgroundBrush(QPixmap("login_user24x24.png"));
+    //  setBackgroundBrush(QPixmap("login_user24x24.png"));
 }
 
 DlgLogin::~DlgLogin()
