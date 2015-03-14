@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>170</y>
+     <y>209</y>
      <width>51</width>
      <height>21</height>
     </rect>
@@ -30,9 +30,9 @@
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>170</y>
+     <y>208</y>
      <width>113</width>
-     <height>20</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>
@@ -40,9 +40,9 @@
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>240</y>
+     <y>279</y>
      <width>113</width>
-     <height>20</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="inputMask">
@@ -59,7 +59,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>240</y>
+     <y>279</y>
      <width>91</width>
      <height>20</height>
     </rect>
@@ -72,7 +72,7 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>380</y>
+     <y>419</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -85,7 +85,7 @@
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>380</y>
+     <y>419</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -98,7 +98,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>10</y>
+     <y>40</y>
      <width>541</width>
      <height>41</height>
     </rect>
@@ -111,6 +111,52 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_UserInput">
+   <property name="geometry">
+    <rect>
+     <x>243</x>
+     <y>208</y>
+     <width>111</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_UserImage">
+   <property name="geometry">
+    <rect>
+     <x>222</x>
+     <y>210</y>
+     <width>24</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_PwdInput">
+   <property name="geometry">
+    <rect>
+     <x>243</x>
+     <y>279</y>
+     <width>113</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_PwdImage">
+   <property name="geometry">
+    <rect>
+     <x>222</x>
+     <y>281</y>
+     <width>24</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
    </property>
   </widget>
  </widget>

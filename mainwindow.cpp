@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     scene.addPixmap(QPixmap("award.ico"));
 
-    QGraphicsView *view = new QGraphicsView(&scene,0);
+    QGraphicsView *view = new QGraphicsView(&scene,this);
 
     view->show();
 
