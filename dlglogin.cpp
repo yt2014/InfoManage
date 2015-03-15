@@ -1,8 +1,7 @@
 #include "dlglogin.h"
 #include "ui_dlglogin.h"
 #include <QMessageBox>
-#include <QTextDocument>
-#include <QUrl>
+#include <QString>
 
 DlgLogin::DlgLogin(QWidget *parent) :
     QDialog(parent),
@@ -10,7 +9,7 @@ DlgLogin::DlgLogin(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
+//begin setting the window gui.
     QPalette palette;
     palette.setColor(QPalette::Background, QColor(192,253,123));
     palette.setBrush(QPalette::Background, QBrush(QPixmap("army.png")));
@@ -51,6 +50,17 @@ DlgLogin::DlgLogin(QWidget *parent) :
     ui->label_PwdImage->setPixmap(QPixmap("login_psw_24x24.png"));
     ui->label_PwdImage->setPalette(pe1);
     ui->label_PwdImage->setAutoFillBackground(true);
+//end setting the window gui.
+    db = QSqlDatabase::database("PersonInfo",true);
+
+    if(db.isValid())
+    {
+        ui->label_indications->setText("database opened successfully!");
+    }
+    else
+    {
+        ui->label_indications->setText("can't open database!");
+    }
 
 
 
@@ -59,6 +69,7 @@ DlgLogin::DlgLogin(QWidget *parent) :
 DlgLogin::~DlgLogin()
 {
     delete ui;
+    db.close();
 }
 
 /*void DlgLogin::on_buttonBox_clicked(QAbstractButton *button)
@@ -91,7 +102,40 @@ DlgLogin::~DlgLogin()
 */
 void DlgLogin::on_PushBtnOK_clicked()
 {
-    if((ui->lineEdit_UserInput->text().trimmed() == tr("admin"))
+    QString name = ui->lineEdit_UserInput->text().trimmed();
+    QString password = ui->lineEdit_PwdInput->text().trimmed();
+
+    QString strSelect = "select * from [Account] where [UserName] = '" + name + "' and [password] = '" + password + "'";
+
+    if(db.isOpen())
+    {
+        QSqlQuery QueryForSelect(db);
+
+        if(QueryForSelect.exec(strSelect))
+        {
+            if(QueryForSelect.size() == 0)
+            {
+                QMessageBox::warning(this,tr("warning"),tr("username or password are not correct!"),QMessageBox::Ok);
+                this->ui->lineEdit_User->clear();
+                this->ui->lineEdit_Pwd->clear();
+            }
+            else
+            {
+                accept();
+            }
+
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("warning"),tr("dabase operation failed"),QMessageBox::Ok);
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this,tr("warning"),tr("database is not open"),QMessageBox::Ok);
+    }
+
+    /*if((ui->lineEdit_UserInput->text().trimmed() == tr("admin"))
             &&(ui->lineEdit_PwdInput->text().trimmed() == tr("admin")))
     {
         accept();
@@ -107,7 +151,7 @@ void DlgLogin::on_PushBtnOK_clicked()
               //reject();
               //this->show();
               //this->ui->txtname->setFocus();
-    }
+    }*/
 
 }
 

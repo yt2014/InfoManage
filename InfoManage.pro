@@ -8,6 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+
 TARGET = InfoManage
 TEMPLATE = app
 
@@ -24,3 +25,8 @@ FORMS    += mainwindow.ui \
 
 OTHER_FILES += \
     army.PNG
+
+RESOURCES += \
+    InfoManageImages.qrc
+
+QT += sql

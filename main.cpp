@@ -1,11 +1,18 @@
 #include "mainwindow.h"
 #include "dlglogin.h"
 #include <QApplication>
+#include <QtSql>
+#include <QSqlDatabase>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+
+    //set database------
+    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC","PersonInfo");
+    db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb)};FIL={MS Access};DBQ=PersonInfo.mdb");
+
     //w.show();
     DlgLogin login;
 

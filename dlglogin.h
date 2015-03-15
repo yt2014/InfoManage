@@ -4,6 +4,9 @@
 #include <QDialog>
 #include <QAbstractButton>
 #include <QPushButton>
+#include <QSql>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 
 namespace Ui {
 class DlgLogin;
@@ -26,6 +29,8 @@ private slots:
 
 private:
     Ui::DlgLogin *ui;
+
+    QSqlDatabase db;
 };
 
 #endif // DLGLOGIN_H
