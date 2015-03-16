@@ -4,3 +4,7 @@
 #ignore .uer file.
 
 *.user
+
+#ignore .user related file.
+
+*.user.*
