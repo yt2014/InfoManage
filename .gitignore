@@ -1,2 +1,6 @@
 #ignore the database file.
 *.mdb
+
+#ignore .uer file.
+
+*.user
