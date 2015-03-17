@@ -42,18 +42,18 @@ DlgLogin::DlgLogin(QWidget *parent) :
     ui->label_UserImage->setPalette(pe1);
     //ui->label_UserPicture->setAutoFillBackground(true);
     ui->label_UserImage->setAutoFillBackground(true);
-    ui->label_UserImage->setPixmap(QPixmap("login_user_24x24.png"));
+    ui->label_UserImage->setPixmap(QPixmap(":/image/photos/login_user_24x24.png"));
     //this->ui->lineEdit_User->setWindowFlags(Qt::FramelessWindowHint);
     ui->lineEdit_UserInput->setFocus();
 
 
-    ui->label_PwdImage->setPixmap(QPixmap("login_psw_24x24.png"));
+    ui->label_PwdImage->setPixmap(QPixmap(":/image/photos/login_psw_24x24.png"));
     ui->label_PwdImage->setPalette(pe1);
     ui->label_PwdImage->setAutoFillBackground(true);
 //end setting the window gui.
     db = QSqlDatabase::database("PersonInfo",true);
 
-    if(db.isValid())
+    if(db.isValid()&&db.isOpen())
     {
         ui->label_indications->setText("database opened successfully!");
     }
