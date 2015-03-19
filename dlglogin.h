@@ -7,6 +7,7 @@
 #include <QSql>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QSqlRecord>
 
 namespace Ui {
 class DlgLogin;

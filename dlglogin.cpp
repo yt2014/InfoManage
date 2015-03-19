@@ -55,7 +55,8 @@ DlgLogin::DlgLogin(QWidget *parent) :
 
     if(db.isValid()&&db.isOpen())
     {
-        ui->label_indications->setText("database opened successfully!");
+     //   ui->label_indications->setText("database opened successfully!");
+        ui->label_indications->setText("");
     }
     else
     {
@@ -105,15 +106,35 @@ void DlgLogin::on_PushBtnOK_clicked()
     QString name = ui->lineEdit_UserInput->text().trimmed();
     QString password = ui->lineEdit_PwdInput->text().trimmed();
 
-    QString strSelect = "select * from [Account] where [UserName] = '" + name + "' and [password] = '" + password + "'";
+    QString strSelect = "select * from Account where [UserName] = '" + name + "' and [password] = '" + password + "'";
 
     if(db.isOpen())
     {
         QSqlQuery QueryForSelect(db);
 
+   /*     QStringList strlistTableNames = db.tables();
+
+        strSelect = "select * from " + strlistTableNames.first();
+
+        QStringList strlistDrivers =  QSqlDatabase::drivers();
+*/
         if(QueryForSelect.exec(strSelect))
         {
-            if(QueryForSelect.size() == 0)
+
+
+          /*  QString strDisplay;
+           * QSqlRecord rec = QueryForSelect.record();
+
+            //strDisplay = "selected:" + QString::number(QueryForSelect.isSelect()) + "isActive:" + QString::number(QueryForSelect.isActive());
+
+            int count = rec.count();
+
+            strDisplay = "size: " + QString::number(count);
+             ui->label_indications->setText(strDisplay);
+          */
+            QueryForSelect.next();
+
+            if(!QueryForSelect.isValid())
             {
                 QMessageBox::warning(this,tr("warning"),tr("username or password are not correct!"),QMessageBox::Ok);
                 this->ui->lineEdit_User->clear();
@@ -123,7 +144,6 @@ void DlgLogin::on_PushBtnOK_clicked()
             {
                 accept();
             }
-
         }
         else
         {

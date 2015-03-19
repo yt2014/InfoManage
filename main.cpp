@@ -10,6 +10,9 @@ int main(int argc, char *argv[])
     MainWindow w;
 
     //set database------
+    //QSqlDatabase db = QSqlDatabase::addDatabase("QODBC","Test");
+    //db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb)};FIL={MS Access};DBQ=Test.mdb");
+
     QSqlDatabase db = QSqlDatabase::addDatabase("QODBC","PersonInfo");
     db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb)};FIL={MS Access};DBQ=PersonInfo.mdb");
 

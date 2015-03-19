@@ -3,4 +3,7 @@
         <file>photos/login_psw_24x24.png</file>
         <file>photos/login_user_24x24.png</file>
     </qresource>
+    <qresource prefix="/database">
+        <file>PersonInfo.mdb</file>
+    </qresource>
 </RCC>
