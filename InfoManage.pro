@@ -15,10 +15,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    dlglogin.cpp
+    dlglogin.cpp \
+    AccountTable.cpp
 
 HEADERS  += mainwindow.h \
-    dlglogin.h
+    dlglogin.h \
+    AccountTable.h
 
 FORMS    += mainwindow.ui \
     dlglogin.ui
