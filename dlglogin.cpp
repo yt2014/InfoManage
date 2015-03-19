@@ -25,6 +25,7 @@ DlgLogin::DlgLogin(QWidget *parent) :
     this->setFixedSize(541,557);
 
     this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowOpacity(1);
     QPalette pe;
     pe.setColor(QPalette::WindowText,Qt::yellow);
    //label->setPalette(pe);
@@ -33,7 +34,6 @@ DlgLogin::DlgLogin(QWidget *parent) :
     this->ui->label_thesis->setFont(font);
     this->ui->label_thesis->setPalette(pe);
 
-    this->setWindowFlags(Qt::FramelessWindowHint);
 
     //this->ui->label_UserPicture->setPixmap(QPixmap("login_user_24x24.png"));
     QPalette pe1;
