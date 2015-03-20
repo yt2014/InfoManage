@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "AccountTable.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +21,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    CAccountTable * m_AccountTable;
+    UserInfoList m_UserInfoList;
+    bool AccountTable_has_readout;
 };
 
 #endif // MAINWINDOW_H

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include "QTreeWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -8,11 +9,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_AccountTable = new AccountTable();
+    AccountTable_has_readout = false;
+    m_UserInfoList = UserInfoList();
+
 }
 
 MainWindow::~MainWindow()
 {
+    delete m_AccountTable;
     delete ui;
+
 }
 
 
@@ -25,9 +32,19 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     switch(index)
     {
     case 0:
+        QTreeWidget * UserInfoTree = new QTreeWidget(ui->tab);
+        if(!AccountTable_has_readout)
+        {
+            m_UserInfoList = m_AccountTable->getListAllFromDatabase();
+            int n = m_UserInfoList.count();
+            for(int i=0;i<n;i++)
+            {
+                UserInfoTree->addTopLevelItem();
+                        m_UserInfoList.at(i).name;
+            }
+        }
         break;
     case 1:
-
         break;
     case 2:
         break;
