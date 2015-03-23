@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "AccountTable.h"
+#include "QTreeWidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +26,8 @@ private:
     CAccountTable * m_AccountTable;
     UserInfoList m_UserInfoList;
     bool AccountTable_has_readout;
+    QTreeWidget * m_UserInfoTree;
+    QTreeWidgetItem *m_NameTreeItems;
 };
 
 #endif // MAINWINDOW_H
