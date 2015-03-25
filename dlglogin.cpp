@@ -11,7 +11,7 @@ DlgLogin::DlgLogin(QWidget *parent) :
 
 //begin setting the window gui.
     QPalette palette;
-    palette.setColor(QPalette::Background, QColor(192,253,123));
+   // palette.setColor(QPalette::Background, QColor(192,253,123));
     palette.setBrush(QPalette::Background, QBrush(QPixmap("army.png")));
 
     QFont font;

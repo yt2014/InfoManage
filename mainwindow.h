@@ -9,6 +9,16 @@ namespace Ui {
 class MainWindow;
 }
 
+
+
+typedef enum
+{
+    Data_ADD,
+    Data_UPDATE,
+    Data_REDUCE
+}Change_Operation;
+
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
