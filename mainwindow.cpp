@@ -60,6 +60,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
             }
 
             UserInfoTree->expandAll();
+            UserInfoTree->show();
+
+            //UserInfoTree->rem
         }
     }
         break;
