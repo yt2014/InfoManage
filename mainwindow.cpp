@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
-#include "QTreeWidget.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,12 +12,37 @@ MainWindow::MainWindow(QWidget *parent) :
     m_AccountTable = new CAccountTable("PersonInfo","Account");
     AccountTable_has_readout = false;
     m_UserInfoList = UserInfoList();
+    m_UserInfoTree = new QTreeWidget(ui->tab);
+    m_UserInfoTree->setMaximumSize(110, 340);
+    m_UserInfoTree->setHeaderHidden(true);
+      //  horizontalLayout->addWidget(UserInfoTree);
 
+        // In addition to the visible column, we add an invisible column in the tree view to hold
+        // an index to the demo modules.
+    m_UserInfoTree->setColumnCount(2);
+    m_UserInfoTree->hideColumn(1);
+
+    connect(m_UserInfoTree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(showPermission(QTreeWidgetItem*,int)));
+
+    m_NameTreeItems = 0;
 }
 
 MainWindow::~MainWindow()
 {
     delete m_AccountTable;
+
+    if(m_NameTreeItems!=0)
+    {
+        QList<QTreeWidgetItem*>  lst_NameTreeChildren = m_NameTreeItems->takeChildren();
+        lst_NameTreeChildren.clear();
+        delete m_NameTreeItems;
+    }
+    if(!m_UserInfoList.isEmpty())
+    {
+        m_UserInfoList.clear();
+    }
+
+    delete m_UserInfoTree;
     delete ui;
 
 }
@@ -27,42 +52,27 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 {
     QString strDisplay = QString::number(index) + "is selected";
 
-    QMessageBox::warning(this,tr("warning"),strDisplay,QMessageBox::Ok);
+    ui->label_ForDebug->setText(strDisplay);
 
     switch(index)
     {
     case 0:
     {
-        QTreeWidget * UserInfoTree = new QTreeWidget(ui->tab);
-
-        UserInfoTree->setMaximumSize(220, 16777215);
-            UserInfoTree->setHeaderHidden(true);
-          //  horizontalLayout->addWidget(UserInfoTree);
-
-            // In addition to the visible column, we add an invisible column in the tree view to hold
-            // an index to the demo modules.
-            UserInfoTree->setColumnCount(2);
-            UserInfoTree->hideColumn(1);
-        if(!AccountTable_has_readout)
+       if(!AccountTable_has_readout)
         {
             m_UserInfoList = m_AccountTable->getListAllFromDatabase();
             AccountTable_has_readout = true;
             int n = m_UserInfoList.count();
 
-            QTreeWidgetItem *currentCategory = 0;
-
-            UserInfoTree->addTopLevelItem(currentCategory = new QTreeWidgetItem(QStringList()<<"names"));
+            m_UserInfoTree->addTopLevelItem(m_NameTreeItems = new QTreeWidgetItem(QStringList()<<"names"));
 
             for(int i=0;i<n;i++)
             {
-                currentCategory->addChild(new QTreeWidgetItem(QStringList() << m_UserInfoList.at(i).name));
+                m_NameTreeItems->addChild(new QTreeWidgetItem(QStringList() << m_UserInfoList.at(i).name));
 
             }
-
-            UserInfoTree->expandAll();
-            UserInfoTree->show();
-
-            //UserInfoTree->rem
+            m_UserInfoTree->expandAll();
+            m_UserInfoTree->show();
         }
     }
         break;
@@ -78,3 +88,24 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     }
 }
+
+void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
+{
+    QString strDisplay = "column " + QString::number(column) + " \n";
+    QString strPermission;
+
+    int n = m_NameTreeItems->indexOfChild(treeItem);
+    strDisplay += "index " + QString::number(n) + " is clicked\n";
+
+    if(n>=0)
+    {
+        strPermission = m_UserInfoList.at(n).permission;
+        strDisplay += "permission is " + strPermission;
+    }
+    ui->label_ForDebug->setText(strDisplay);
+
+}
+
+
+
+

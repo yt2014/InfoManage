@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "AccountTable.h"
+#include "QTreeWidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,7 @@ public:
 
 private slots:
     void on_tabWidget_currentChanged(int index);
+    void showPermission(QTreeWidgetItem* treeItem,int index);
 
 private:
     Ui::MainWindow *ui;
@@ -25,6 +27,8 @@ private:
     CAccountTable * m_AccountTable;
     UserInfoList m_UserInfoList;
     bool AccountTable_has_readout;
+    QTreeWidget * m_UserInfoTree;
+    QTreeWidgetItem *m_NameTreeItems;
 };
 
 #endif // MAINWINDOW_H

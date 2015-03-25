@@ -13,6 +13,11 @@ CAccountTable::~CAccountTable()
     {
        m_UserInfoList.clear();
     }
+
+    if(db.isOpen())
+    {
+        db.close();
+    }
 }
 
 void CAccountTable::setDatabaseAlias(QString DatabaseAlias)
