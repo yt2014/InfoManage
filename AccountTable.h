@@ -20,6 +20,18 @@ typedef struct
 typedef QList<OneUserInfo> UserInfoList;
 
 
+typedef enum
+{
+    Operation_Success,
+    DataBaseNotOpen,
+    AddExistRecord,
+    AddFailed,
+    UpdateFailed,
+    DeleteNotExistRecord,
+    DeleteFailed
+
+}Operation_Result;
+
 class CAccountTable
 {
 public:
@@ -28,7 +40,11 @@ public:
     void setDatabaseAlias(QString DatabaseAlias);
     void setTableName(QString TableName);
     UserInfoList getListAllFromDatabase();
+    bool isUserNameExist(OneUserInfo RecordToStore);
     bool openDatabase();
+    Operation_Result addOneRecord(OneUserInfo RecordToStore);
+    Operation_Result UpdateOneRecord(OneUserInfo RecordToUpdate);
+    Operation_Result DeleteOneRecord(OneUserInfo RecordToDelete);
 private:
     QString m_DatabaseAlias;
     QString m_TableName;

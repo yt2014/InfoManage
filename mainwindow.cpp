@@ -12,15 +12,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_AccountTable = new CAccountTable("PersonInfo","Account");
     AccountTable_has_readout = false;
     m_UserInfoList = UserInfoList();
-    m_UserInfoTree = new QTreeWidget(ui->tab);
-    m_UserInfoTree->setMaximumSize(110, 340);
-    m_UserInfoTree->setHeaderHidden(true);
-      //  horizontalLayout->addWidget(UserInfoTree);
+   // m_UserInfoTree = new QTreeWidget(ui->tab);
 
-        // In addition to the visible column, we add an invisible column in the tree view to hold
-        // an index to the demo modules.
-    m_UserInfoTree->setColumnCount(2);
-    m_UserInfoTree->hideColumn(1);
+    m_UserInfoTree = ui->treeWidget_Names;
+    m_UserInfoTree->setHeaderHidden(true);
 
     connect(m_UserInfoTree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(showPermission(QTreeWidgetItem*,int)));
 
@@ -42,7 +37,7 @@ MainWindow::~MainWindow()
         m_UserInfoList.clear();
     }
 
-    delete m_UserInfoTree;
+    //delete m_UserInfoTree;
     delete ui;
 
 }
@@ -106,6 +101,16 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
 
 }
 
+ void MainWindow::AccountTableChangeOperation(Change_Operation operation,int Index_Changed)
+ {
+     switch (operation)
+     {
+        case Data_ADD:
+             {
 
+             }
+         break;
+     }
+ }
 
 

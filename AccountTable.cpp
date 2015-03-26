@@ -84,3 +84,74 @@ bool CAccountTable::openDatabase()
         return false;
     }
 }
+
+bool CAccountTable::isUserNameExist(OneUserInfo RecordToStore)
+{
+    QString strToFind =  RecordToStore.name;
+
+    int num_records = m_UserInfoList.count();
+    int i=0;
+    for(i=0;i<num_records;i++)
+    {
+        if(m_UserInfoList.at(i).name == strToFind)
+            break;
+    }
+    if(i<num_records)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+Operation_Result CAccountTable::addOneRecord(OneUserInfo RecordToStore)
+{
+    Operation_Result value_ret = AddFailed;
+
+
+
+     if(db.isOpen())
+     {
+        value_ret =  DataBaseNotOpen;
+     }
+     else
+     {
+         if(isUserNameExist(RecordToStore))
+         {
+             value_ret = AddExistRecord;
+         }
+         else
+         {
+             QSqlQuery query(db);
+
+             QString strSQL = "insert into " + m_TableName + " (UserName,password,permission) values (\'"
+                                                              + RecordToStore.name + "\',\'"
+                                                              + RecordToStore.password + "\',\'"
+                                                              + RecordToStore.permission + "\')";
+            if(query.exec(strSQL))
+            {
+                value_ret = Operation_Success;
+            }
+            else
+            {
+               value_ret = AddFailed;
+            }
+
+         }
+
+     }
+
+
+
+}
+Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
+{
+
+}
+Operation_Result CAccountTable::DeleteOneRecord(OneUserInfo RecordToDelete)
+{
+
+}

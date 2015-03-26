@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>666</width>
-    <height>505</height>
+    <width>1167</width>
+    <height>675</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,29 +19,31 @@
      <rect>
       <x>110</x>
       <y>80</y>
-      <width>441</width>
-      <height>291</height>
+      <width>981</width>
+      <height>441</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>用户管理</string>
      </attribute>
-     <widget class="QPushButton" name="ButtonTab1">
+     <widget class="QTreeWidget" name="treeWidget_Names">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>40</y>
-        <width>75</width>
-        <height>23</height>
+        <x>0</x>
+        <y>0</y>
+        <width>121</width>
+        <height>421</height>
        </rect>
       </property>
-      <property name="text">
-       <string>ButtonTab1</string>
-      </property>
+      <column>
+       <property name="text">
+        <string notr="true">1</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -100,7 +102,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>666</width>
+     <width>1167</width>
      <height>21</height>
     </rect>
    </property>

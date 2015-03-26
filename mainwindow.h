@@ -29,7 +29,8 @@ public:
 
 private slots:
     void on_tabWidget_currentChanged(int index);
-    void showPermission(QTreeWidgetItem* treeItem,int index);
+    void showPermission(QTreeWidgetItem* treeItem,int index);    
+    void AccountTableChangeOperation(Change_Operation operation,int Index_Changed);
 
 private:
     Ui::MainWindow *ui;
