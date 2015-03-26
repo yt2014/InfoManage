@@ -1,5 +1,6 @@
 #ifndef ACCOUNTTABLE_H
 #define ACCOUNTTABLE_H
+#include "DatabaseTable.h"
 
 #include <QSql>
 #include <QSqlDatabase>
@@ -20,19 +21,7 @@ typedef struct
 typedef QList<OneUserInfo> UserInfoList;
 
 
-typedef enum
-{
-    Operation_Success,
-    DataBaseNotOpen,
-    AddExistRecord,
-    AddFailed,
-    UpdateFailed,
-    DeleteNotExistRecord,
-    DeleteFailed
-
-}Operation_Result;
-
-class CAccountTable
+class CAccountTable:CDatabaseTable
 {
 public:
     CAccountTable(QString DatabaseAlias = "PersonInfo",QString TableName = "Account");

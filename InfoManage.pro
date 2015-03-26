@@ -16,11 +16,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     dlglogin.cpp \
-    AccountTable.cpp
+    AccountTable.cpp \
+    DatabaseTable.cpp
 
 HEADERS  += mainwindow.h \
     dlglogin.h \
-    AccountTable.h
+    AccountTable.h \
+    DatabaseTable.h
 
 FORMS    += mainwindow.ui \
     dlglogin.ui

@@ -10,15 +10,6 @@ class MainWindow;
 }
 
 
-
-typedef enum
-{
-    Data_ADD,
-    Data_UPDATE,
-    Data_REDUCE
-}Change_Operation;
-
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -27,10 +18,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void AccountTableChangeOperation(Change_Operation operation,int Index_Changed);
+
 private slots:
     void on_tabWidget_currentChanged(int index);
     void showPermission(QTreeWidgetItem* treeItem,int index);    
-    void AccountTableChangeOperation(Change_Operation operation,int Index_Changed);
+
 
 private:
     Ui::MainWindow *ui;
