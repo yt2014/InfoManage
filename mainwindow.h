@@ -5,6 +5,7 @@
 #include "AccountTable.h"
 #include "usermanage_uicontrol.h"
 #include "QTreeWidget.h"
+#include <QButtonGroup>
 
 namespace Ui {
 class MainWindow;
@@ -26,10 +27,25 @@ private slots:
     void on_tabWidget_currentChanged(int index);
     void showPermission(QTreeWidgetItem* treeItem,int index);    
 
+    void on_pushButton_AddUser_clicked();
+
+    void on_pushButton_Update_clicked();
+
+    void on_pushButton_Delete_clicked();
+
+    void on_pushButton_Cancel_clicked();
+
+    void on_pushButton_OK_clicked();
+
+    void PermissionChanged(int id);
+
 private:
     Ui::MainWindow *ui;
     QTreeWidget * m_UserInfoTree;
     QTreeWidgetItem *m_NameTreeItems;
+    QButtonGroup * m_UserRadioGroup;
+    QButtonGroup * m_SergeantRadioGroup;
+    QButtonGroup * m_CadresRadioGroup;
 
 
     CAccountTable * m_AccountTable;

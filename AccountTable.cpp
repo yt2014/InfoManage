@@ -54,7 +54,7 @@ UserInfoList CAccountTable::getListAllFromDatabase()
                    OneUserInfo oneinfo;
                    oneinfo.name = query.value(index_Name).toString();
                    oneinfo.password = query.value(index_Password).toString();
-                   oneinfo.permission = query.value(index_permission).toString();
+                   oneinfo.permission = query.value(index_permission).toInt();
 
                    m_UserInfoList.append(oneinfo);
 

@@ -15,7 +15,7 @@ typedef struct
 {
     QString name;
     QString password;
-    QString permission;
+    uint permission;
 }OneUserInfo;
 
 typedef QList<OneUserInfo> UserInfoList;

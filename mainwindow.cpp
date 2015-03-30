@@ -20,10 +20,35 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_UserUIControl = new CUserManage_UIControl(m_AccountTable);
 
+    m_UserRadioGroup = new QButtonGroup(ui->tab);
+    m_SergeantRadioGroup = new QButtonGroup(ui->tab);
+    m_CadresRadioGroup = new QButtonGroup(ui->tab);
+
+    m_CadresRadioGroup->addButton(ui->rB_CadresNo,0);
+    m_CadresRadioGroup->addButton(ui->rB_CadresReadOnly,1);
+    m_CadresRadioGroup->addButton(ui->rB_CadresReadWrite,2);
+
+    m_UserRadioGroup->addButton(ui->rB_UserNo,0);
+    m_UserRadioGroup->addButton(ui->rB_UserReadOnly,1);
+    m_UserRadioGroup->addButton(ui->rB_UserReadWrite,2);
+
+
+    m_SergeantRadioGroup->addButton(ui->rB_SergeantNo,0);
+    m_SergeantRadioGroup->addButton(ui->rB_SergeantReadOnly,1);
+    m_SergeantRadioGroup->addButton(ui->rB_SergeantReadWrite,2);
+
+    connect(m_UserRadioGroup,SIGNAL(buttonClicked(int id)),this,SLOT(PermissionChanged(int id)));
+
+
+    ui->tabWidget->setCurrentIndex(0);
+
 }
 
 MainWindow::~MainWindow()
 {
+    delete m_UserRadioGroup;
+    delete m_SergeantRadioGroup;
+    delete m_CadresRadioGroup;
     delete m_UserUIControl;
     delete m_AccountTable;
 
@@ -69,6 +94,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
             m_UserInfoTree->expandAll();
             m_UserInfoTree->show();
         }
+
+
+
     }
         break;
     case 1:
@@ -170,3 +198,77 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
  }
 
 
+
+void MainWindow::on_pushButton_AddUser_clicked()
+{
+    m_UserUIControl->set_Status(Op_Add);
+    ui->pushButton_AddUser->setVisible(false);
+    ui->pushButton_Delete->setVisible(false);
+    ui->pushButton_Update->setVisible(false);
+
+    ui->pushButton_Cancel->setVisible(true);
+    ui->pushButton_OK->setVisible(true);
+}
+
+void MainWindow::on_pushButton_Update_clicked()
+{
+    m_UserUIControl->set_Status(Op_Update);
+    ui->pushButton_AddUser->setVisible(false);
+    ui->pushButton_Delete->setVisible(false);
+    ui->pushButton_Update->setVisible(false);
+
+    ui->pushButton_Cancel->setVisible(true);
+    ui->pushButton_OK->setVisible(true);
+}
+
+
+void MainWindow::on_pushButton_Delete_clicked()
+{
+     m_UserUIControl->set_Status(Op_Delete);
+     ui->pushButton_AddUser->setVisible(false);
+     ui->pushButton_Delete->setVisible(false);
+     ui->pushButton_Update->setVisible(false);
+
+     ui->pushButton_Cancel->setVisible(true);
+     ui->pushButton_OK->setVisible(true);
+}
+
+void MainWindow::on_pushButton_Cancel_clicked()
+{
+    m_UserUIControl->set_Status(Op_Idle);
+    ui->pushButton_AddUser->setVisible(true);
+    ui->pushButton_Delete->setVisible(true);
+    ui->pushButton_Update->setVisible(true);
+
+    ui->pushButton_Cancel->setVisible(false);
+    ui->pushButton_OK->setVisible(false);
+}
+
+
+
+void MainWindow::on_pushButton_OK_clicked()
+{
+
+    OneUserInfo currentRecord;
+    currentRecord.name = ui->lineEdit_Name;
+    currentRecord.password = ui->lineEdit_Password;
+
+    m_UserUIControl->
+
+    m_UserUIControl->set_Status(Op_Idle);
+    ui->pushButton_AddUser->setVisible(true);
+    ui->pushButton_Delete->setVisible(true);
+    ui->pushButton_Update->setVisible(true);
+
+    ui->pushButton_Cancel->setVisible(false);
+    ui->pushButton_OK->setVisible(false);
+}
+
+void MainWindow::PermissionChanged()
+{
+    if(sender() == m_UserRadioGroup)
+    {
+
+    }
+
+}

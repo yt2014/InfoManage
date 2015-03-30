@@ -29,9 +29,12 @@ bool CUserManage_UIControl::set_index(int index)
 
 bool CUserManage_UIControl::set_CurrentRecord(OneUserInfo * currentRecord)
 {
-    m_currentRecord->name = currentRecord->name;
-    m_currentRecord->password = currentRecord->password;
-    m_currentRecord->permission = currentRecord->permission;
+    if(currentRecord!=NULL)
+    {
+        m_currentRecord->name = currentRecord->name;
+        m_currentRecord->password = currentRecord->password;
+        m_currentRecord->permission = currentRecord->permission;
+    }
     return true;
 }
 
@@ -41,3 +44,7 @@ CUserManage_UIControl::~CUserManage_UIControl()
     delete m_currentRecord;
 }
 
+bool CUserManage_UIControl::set_Permission(uint Permission)
+{
+    m_currentRecord->permission = QString.number(Permission);
+}
