@@ -3,20 +3,13 @@
 
 #include <QMainWindow>
 #include "AccountTable.h"
+#include "usermanage_uicontrol.h"
 #include "QTreeWidget.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-
-
-typedef enum
-{
-    Data_ADD,
-    Data_UPDATE,
-    Data_REDUCE
-}Change_Operation;
 
 
 class MainWindow : public QMainWindow
@@ -30,16 +23,17 @@ public:
 private slots:
     void on_tabWidget_currentChanged(int index);
     void showPermission(QTreeWidgetItem* treeItem,int index);    
-    void AccountTableChangeOperation(Change_Operation operation,int Index_Changed);
 
 private:
     Ui::MainWindow *ui;
+    QTreeWidget * m_UserInfoTree;
+    QTreeWidgetItem *m_NameTreeItems;
+
 
     CAccountTable * m_AccountTable;
     UserInfoList m_UserInfoList;
     bool AccountTable_has_readout;
-    QTreeWidget * m_UserInfoTree;
-    QTreeWidgetItem *m_NameTreeItems;
+    CUserManage_UIControl * m_UserUIControl;
 };
 
 #endif // MAINWINDOW_H

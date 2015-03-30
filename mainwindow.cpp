@@ -9,21 +9,22 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+//for Account Table and related Tab
     m_AccountTable = new CAccountTable("PersonInfo","Account");
     AccountTable_has_readout = false;
     m_UserInfoList = UserInfoList();
-   // m_UserInfoTree = new QTreeWidget(ui->tab);
-
     m_UserInfoTree = ui->treeWidget_Names;
     m_UserInfoTree->setHeaderHidden(true);
-
     connect(m_UserInfoTree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(showPermission(QTreeWidgetItem*,int)));
-
     m_NameTreeItems = 0;
+
+    m_UserUIControl = new CUserManage_UIControl(m_AccountTable);
+
 }
 
 MainWindow::~MainWindow()
 {
+    delete m_UserUIControl;
     delete m_AccountTable;
 
     if(m_NameTreeItems!=0)
@@ -37,7 +38,6 @@ MainWindow::~MainWindow()
         m_UserInfoList.clear();
     }
 
-    //delete m_UserInfoTree;
     delete ui;
 
 }
@@ -95,22 +95,17 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
     if(n>=0)
     {
         strPermission = m_UserInfoList.at(n).permission;
-        strDisplay += "permission is " + strPermission;
+        strDisplay += "permission is " + strPermission;        
+
+        //setting the current record and index in m_UserUIControl.
+        m_UserUIControl->set_CurrentRecord(&(m_UserInfoList.at(n)));
+        m_UserUIControl->set_index(n);
     }
     ui->label_ForDebug->setText(strDisplay);
 
+
+
 }
 
- void MainWindow::AccountTableChangeOperation(Change_Operation operation,int Index_Changed)
- {
-     switch (operation)
-     {
-        case Data_ADD:
-             {
-
-             }
-         break;
-     }
- }
 
 
