@@ -20,6 +20,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void AccountTableChangeOperation(Operation_Status operation,int Index_Changed);
+
 private slots:
     void on_tabWidget_currentChanged(int index);
     void showPermission(QTreeWidgetItem* treeItem,int index);    

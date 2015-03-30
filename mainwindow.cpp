@@ -107,5 +107,66 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
 
 }
 
+ void MainWindow::AccountTableChangeOperation(Change_Operation operation,int Index_Changed)
+ {
+     switch (operation)
+     {
+        case Op_Add:
+             {
+                 OneUserInfo RecordToAdd;
+                 RecordToAdd.name = ui->lineEdit_Name->text().trimmed();
+                 RecordToAdd.password = ui->lineEdit_Password->text().trimmed();
+                 RecordToAdd.permission = "0x0000";
+                 Operation_Result result = m_AccountTable->addOneRecord(RecordToAdd);
+                 switch(result)
+                 {
+                    case Operation_Success:
+                      {
+                          m_UserInfoList.append(RecordToAdd);
+                          m_NameTreeItems->addChild(new QTreeWidgetItem(QStringList() << RecordToAdd.name));
+                      }
+                     break;
+                   case DataBaseNotOpen:
+                      {
+                          ui->label_ForDebug->setText("database not open！");
+                      }
+                     break;
+                   case AddExistRecord:
+                      {
+                         ui->label_ForDebug->setText("该用户名已经存在！");
+                      }
+                     break;
+                   case AddFailed:
+                      {
+                         ui->label_ForDebug->setText("添加不成功,请重试！");
+                      }
+                     break;
+                 default:
+                      {
+                         ui->label_ForDebug->setText("添加不成功，请重试！");
+                      }
+                     break;
+                 }
+             }
+         break;
+        case Op_Update:
+             {
+                OneUserInfo RecordToUpdate;
+                RecordToUpdate.name = m_UserInfoList.at(Index_Changed).name;
+                RecordToUpdate.password = ui->lineEdit_Password->text().trimmed();
+                RecordToUpdate.permission = "0x0000";
+
+                m_AccountTable->UpdateOneRecord(RecordToUpdate);
+             }
+         break;
+        case Op_Delete:
+             {
+
+             }
+         break;
+     default:
+         break;
+     }
+ }
 
 

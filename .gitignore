@@ -8,3 +8,7 @@
 #ignore .user related file.
 
 *.user.*
+
+#ignore .autosave files
+
+*.autosave

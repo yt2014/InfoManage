@@ -137,21 +137,85 @@ Operation_Result CAccountTable::addOneRecord(OneUserInfo RecordToStore)
             }
             else
             {
-               value_ret = AddFailed;
+                value_ret = AddFailed;
             }
 
          }
 
      }
 
-
+return value_ret;
 
 }
 Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
 {
+    Operation_Result value_ret = UpdateFailed;
 
+    if(db.isOpen())
+    {
+       value_ret =  DataBaseNotOpen;
+    }
+    else
+    {
+        if(!isUserNameExist(RecordToStore))
+        {
+            value_ret = UpdateFailed;
+        }
+        else
+        {
+            QSqlQuery query(db);
+
+            QString strSQL = "update " + m_TableName + " set password = '" + RecordToUpdate.password
+                                                        +"',permission = '" + RecordToUpdate.permission
+                                                        +"' where UserName = '" + RecordToUpdate.name
+                                                        +"'";
+           if(query.exec(strSQL))
+           {
+               value_ret = Operation_Success;
+           }
+           else
+           {
+               value_ret = UpdateFailed;
+           }
+
+        }
+
+    }
+
+    return value_ret;
 }
 Operation_Result CAccountTable::DeleteOneRecord(OneUserInfo RecordToDelete)
 {
+    Operation_Result value_ret = DeleteFailed;
 
+    if(db.isOpen())
+    {
+       value_ret =  DataBaseNotOpen;
+    }
+    else
+    {
+        if(!isUserNameExist(RecordToStore))
+        {
+            value_ret = DeleteNotExistRecord;
+        }
+        else
+        {
+            QSqlQuery query(db);
+
+            QString strSQL = "delete from " + m_TableName + " where UserName = '" + RecordToDelete.name
+                                                        +"'";
+           if(query.exec(strSQL))
+           {
+               value_ret = Operation_Success;
+           }
+           else
+           {
+               value_ret = DeleteFailed;
+           }
+
+        }
+
+    }
+
+    return value_ret;
 }

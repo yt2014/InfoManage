@@ -18,11 +18,13 @@ SOURCES += main.cpp\
     dlglogin.cpp \
     AccountTable.cpp \
     usermanage_uicontrol.cpp
+    DatabaseTable.cpp
 
 HEADERS  += mainwindow.h \
     dlglogin.h \
     AccountTable.h \
     usermanage_uicontrol.h
+    DatabaseTable.h
 
 FORMS    += mainwindow.ui \
     dlglogin.ui
