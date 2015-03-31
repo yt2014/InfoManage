@@ -26,7 +26,7 @@ public:
     bool set_Status(Operation_Status current_op_status);
     bool set_index(int index);
     bool set_CurrentRecord(OneUserInfo * currentRecord);
-    bool set_Permission(uint Permission);
+    bool set_Permission(int shifting,int value);
     CUserManage_UIControl();
     CUserManage_UIControl(CAccountTable * ptr_accountTable);
 

@@ -44,7 +44,8 @@ CUserManage_UIControl::~CUserManage_UIControl()
     delete m_currentRecord;
 }
 
-bool CUserManage_UIControl::set_Permission(uint Permission)
+bool CUserManage_UIControl::set_Permission(int shifting,int value)
 {
+
     m_currentRecord->permission = QString.number(Permission);
 }

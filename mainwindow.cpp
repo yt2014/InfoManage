@@ -264,8 +264,9 @@ void MainWindow::on_pushButton_OK_clicked()
     ui->pushButton_OK->setVisible(false);
 }
 
-void MainWindow::PermissionChanged()
+void MainWindow::PermissionChanged(int id)
 {
+    int Shifting
     if(sender() == m_UserRadioGroup)
     {
 

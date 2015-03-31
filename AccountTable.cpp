@@ -129,8 +129,8 @@ Operation_Result CAccountTable::addOneRecord(OneUserInfo RecordToStore)
 
              QString strSQL = "insert into " + m_TableName + " (UserName,password,permission) values (\'"
                                                               + RecordToStore.name + "\',\'"
-                                                              + RecordToStore.password + "\',\'"
-                                                              + RecordToStore.permission + "\')";
+                                                              + RecordToStore.password + "\',"
+                                                              + RecordToStore.permission + ")";
             if(query.exec(strSQL))
             {
                 value_ret = Operation_Success;
@@ -166,8 +166,8 @@ Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
             QSqlQuery query(db);
 
             QString strSQL = "update " + m_TableName + " set password = '" + RecordToUpdate.password
-                                                        +"',permission = '" + RecordToUpdate.permission
-                                                        +"' where UserName = '" + RecordToUpdate.name
+                                                        +"',permission = " + RecordToUpdate.permission
+                                                        +" where UserName = '" + RecordToUpdate.name
                                                         +"'";
            if(query.exec(strSQL))
            {
