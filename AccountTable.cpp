@@ -134,6 +134,7 @@ Operation_Result CAccountTable::addOneRecord(OneUserInfo RecordToStore)
             if(query.exec(strSQL))
             {
                 value_ret = AddSuccess;
+                m_UserInfoList.append(RecordToStore);
             }
             else
             {

@@ -305,15 +305,55 @@ void MainWindow::on_pushButton_OK_clicked()
     ui->lineEdit_Name->setEnabled(false);
     setConfigPermissionOnUIEnabled(false);
 
+    OneUserInfo tempOneRecord;
+    OneUserInfo * ptr_currentRecord = m_UserUIControl->getCurrentRecord();
+    int index = m_UserUIControl->getIndex();
     switch (result)
     {
     case AddSuccess:
+    {
         ui->label_ForDebug->setText("添加成功");
-        m_UserInfoList.append();
+        tempOneRecord.name = ptr_currentRecord->name;
+        tempOneRecord.password = ptr_currentRecord->password;
+        tempOneRecord.permission = ptr_currentRecord->permission;
+        m_UserInfoList.append(tempOneRecord);
+        QTreeWidgetItem * itemToAddInNameTree = new QTreeWidgetItem(QStringList()<<tempOneRecord.name);
+        m_NameTreeItems->addChild(itemToAddInNameTree);
+        m_UserInfoTree->itemClicked(m_NameTreeItems,0);
+        m_UserInfoTree->collapseAll();
+     }
         break;
-
+    case UpdateSuccess:
+        ui->label_ForDebug->setText("修改成功");
+        tempOneRecord.name = ptr_currentRecord->name;
+        tempOneRecord.password = ptr_currentRecord->password;
+        tempOneRecord.permission = ptr_currentRecord->permission;
+        m_UserInfoList.removeAt(index);
+        m_UserInfoList.insert(index,tempOneRecord);
+        break;
+    case DeleteSuccess:
+        ui->label_ForDebug->setText("删除成功");
+        m_UserInfoList.removeAt(index);
+        delete m_NameTreeItems->takeChild(index);
+        m_UserInfoTree->collapseAll();
+        break;
+    case DataBaseNotOpen:
+        ui->label_ForDebug->setText("数据库没有打开");
+        break;
+    case AddExistRecord:
+        ui->label_ForDebug->setText("想要添加的用户名已经存在");
+        break;
+    case AddFailed:
+    case UpdateFailed:
+    case DeleteFailed:
+        ui->label_ForDebug->setText("操作失败");
+        break;
+    case DeleteNotExistRecord:
+        ui->label_ForDebug->setText("想要删除的用户不存在");
+        break;
+    default:
+        break;
     }
-
 
 }
 

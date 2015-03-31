@@ -27,6 +27,11 @@ bool CUserManage_UIControl::set_index(int index)
     return true;
 }
 
+int CUserManage_UIControl::getIndex()
+{
+    return m_currentIndex;
+}
+
 bool CUserManage_UIControl::set_CurrentRecord(const OneUserInfo * currentRecord)
 {
     if(currentRecord!=NULL)
@@ -36,6 +41,11 @@ bool CUserManage_UIControl::set_CurrentRecord(const OneUserInfo * currentRecord)
        m_currentRecord->permission = currentRecord->permission;
     }
     return true;
+}
+
+OneUserInfo *CUserManage_UIControl::getCurrentRecord()
+{
+    return m_currentRecord;
 }
 
 bool CUserManage_UIControl::set_Name(QString strName)

@@ -25,8 +25,10 @@ private:
 public:
     bool set_Status(Operation_Status current_op_status);
     bool set_index(int index);
+    int getIndex(void);
     //set_CurrentRecord is used in Op_Idle and Op_Query status.
     bool set_CurrentRecord(const OneUserInfo * currentRecord);
+    OneUserInfo * getCurrentRecord(void);
     //the following 3 member functions are used in Op_Add, Op_Update,Op_Delete.
     bool set_Name(QString strName);
     bool set_Password(QString strPassword);
