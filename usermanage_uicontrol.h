@@ -25,8 +25,13 @@ private:
 public:
     bool set_Status(Operation_Status current_op_status);
     bool set_index(int index);
-    bool set_CurrentRecord(OneUserInfo * currentRecord);
-    bool set_Permission(uint Permission);
+    //set_CurrentRecord is used in Op_Idle and Op_Query status.
+    bool set_CurrentRecord(const OneUserInfo * currentRecord);
+    //the following 3 member functions are used in Op_Add, Op_Update,Op_Delete.
+    bool set_Name(QString strName);
+    bool set_Password(QString strPassword);
+    bool set_Permission(uint value,int shifting);
+    Operation_Result ProcessOKEvent();
     CUserManage_UIControl();
     CUserManage_UIControl(CAccountTable * ptr_accountTable);
 
