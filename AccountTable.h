@@ -18,6 +18,14 @@ typedef struct
     uint permission;
 }OneUserInfo;
 
+#define PERMISSION_SHIFT_USER 0
+#define PERMISSION_SHIFT_SERGEANT 2
+#define PERMISSION_SHIFT_CADRES 4
+#define PERMISSION_SHIFT_OPERATOR 6
+#define PERMISSION_SHIFT_SECRETMAN 8
+#define PERMISSION_SHIFT_INVALID 10
+
+
 typedef QList<OneUserInfo> UserInfoList;
 
 

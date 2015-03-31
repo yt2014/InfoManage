@@ -157,7 +157,7 @@ Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
     }
     else
     {
-        if(!isUserNameExist(RecordToStore))
+        if(!isUserNameExist(RecordToUpdate))
         {
             value_ret = UpdateFailed;
         }
@@ -194,7 +194,7 @@ Operation_Result CAccountTable::DeleteOneRecord(OneUserInfo RecordToDelete)
     }
     else
     {
-        if(!isUserNameExist(RecordToStore))
+        if(!isUserNameExist(RecordToDelete))
         {
             value_ret = DeleteNotExistRecord;
         }

@@ -122,7 +122,7 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
 
     if(n>=0)
     {
-        strPermission = m_UserInfoList.at(n).permission;
+        strPermission = QString::number(m_UserInfoList.at(n).permission);
         strDisplay += "permission is " + strPermission;        
 
         //setting the current record and index in m_UserUIControl.
@@ -135,7 +135,7 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
 
 }
 
- void MainWindow::AccountTableChangeOperation(Change_Operation operation,int Index_Changed)
+ void MainWindow::AccountTableChangeOperation(Operation_Status operation,int Index_Changed)
  {
      switch (operation)
      {
@@ -144,7 +144,7 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
                  OneUserInfo RecordToAdd;
                  RecordToAdd.name = ui->lineEdit_Name->text().trimmed();
                  RecordToAdd.password = ui->lineEdit_Password->text().trimmed();
-                 RecordToAdd.permission = "0x0000";
+                 RecordToAdd.permission = 0;
                  Operation_Result result = m_AccountTable->addOneRecord(RecordToAdd);
                  switch(result)
                  {
@@ -156,22 +156,22 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
                      break;
                    case DataBaseNotOpen:
                       {
-                          ui->label_ForDebug->setText("database not open！");
+                          ui->label_ForDebug->setText("database not open!");
                       }
                      break;
                    case AddExistRecord:
                       {
-                         ui->label_ForDebug->setText("该用户名已经存在！");
+                         ui->label_ForDebug->setText("该用户名已经存在!");
                       }
                      break;
                    case AddFailed:
                       {
-                         ui->label_ForDebug->setText("添加不成功,请重试！");
+                         ui->label_ForDebug->setText("添加不成功,请重试!");
                       }
                      break;
                  default:
                       {
-                         ui->label_ForDebug->setText("添加不成功，请重试！");
+                         ui->label_ForDebug->setText("添加不成功，请重试!");
                       }
                      break;
                  }
@@ -182,7 +182,7 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
                 OneUserInfo RecordToUpdate;
                 RecordToUpdate.name = m_UserInfoList.at(Index_Changed).name;
                 RecordToUpdate.password = ui->lineEdit_Password->text().trimmed();
-                RecordToUpdate.permission = "0x0000";
+                RecordToUpdate.permission = 0;
 
                 m_AccountTable->UpdateOneRecord(RecordToUpdate);
              }
@@ -249,11 +249,15 @@ void MainWindow::on_pushButton_Cancel_clicked()
 void MainWindow::on_pushButton_OK_clicked()
 {
 
-    OneUserInfo currentRecord;
-    currentRecord.name = ui->lineEdit_Name;
-    currentRecord.password = ui->lineEdit_Password;
+    QString UserName = ui->lineEdit_Name->text().trimmed();
+    QString PassWord = ui->lineEdit_Password->text().trimmed();
 
-    m_UserUIControl->
+    //currentRecord.permission = 0xff<<PERMISSION_SHIFT_INVALID;
+
+    m_UserUIControl->set_Name(UserName);
+    m_UserUIControl->set_Password(PassWord);
+
+    m_UserUIControl->ProcessOKEvent();
 
     m_UserUIControl->set_Status(Op_Idle);
     ui->pushButton_AddUser->setVisible(true);
@@ -266,10 +270,23 @@ void MainWindow::on_pushButton_OK_clicked()
 
 void MainWindow::PermissionChanged(int id)
 {
-    int Shifting
+    uint value = id;//value of permission equals to id
+    //00:no permission; 01:readonly; 11:readwrite;
+    int shifting = -1;
     if(sender() == m_UserRadioGroup)
     {
-
+        shifting = PERMISSION_SHIFT_USER;
     }
+    else if(sender() == m_SergeantRadioGroup)
+    {
+        shifting =  PERMISSION_SHIFT_SERGEANT;
+    }
+    else if(sender() == m_CadresRadioGroup)
+    {
+        shifting = PERMISSION_SHIFT_CADRES;
+    }
+
+    m_UserUIControl->set_Permission(value,shifting);
+
 
 }
