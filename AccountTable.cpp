@@ -133,7 +133,7 @@ Operation_Result CAccountTable::addOneRecord(OneUserInfo RecordToStore)
                                                               + QString::number(RecordToStore.permission) + ")";
             if(query.exec(strSQL))
             {
-                value_ret = Operation_Success;
+                value_ret = AddSuccess;
             }
             else
             {
@@ -171,7 +171,7 @@ Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
                                                         +"'";
            if(query.exec(strSQL))
            {
-               value_ret = Operation_Success;
+               value_ret = UpdateSuccess;
            }
            else
            {
@@ -206,7 +206,7 @@ Operation_Result CAccountTable::DeleteOneRecord(OneUserInfo RecordToDelete)
                                                         +"'";
            if(query.exec(strSQL))
            {
-               value_ret = Operation_Success;
+               value_ret = DeleteSuccess;
            }
            else
            {

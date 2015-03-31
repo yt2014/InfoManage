@@ -15,9 +15,12 @@ typedef enum
     DataBaseNotOpen,
     AddExistRecord,
     AddFailed,
+    AddSuccess,
     UpdateFailed,
+    UpdateSuccess,
     DeleteNotExistRecord,
-    DeleteFailed
+    DeleteFailed,
+    DeleteSuccess
 
 }Operation_Result;
 

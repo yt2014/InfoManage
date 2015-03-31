@@ -291,7 +291,7 @@ void MainWindow::on_pushButton_OK_clicked()
     m_UserUIControl->set_Name(UserName);
     m_UserUIControl->set_Password(PassWord);
 
-    m_UserUIControl->ProcessOKEvent();
+    Operation_Result result = m_UserUIControl->ProcessOKEvent();
 
     m_UserUIControl->set_Status(Op_Idle);
     ui->pushButton_AddUser->setVisible(true);
@@ -304,6 +304,17 @@ void MainWindow::on_pushButton_OK_clicked()
     ui->lineEdit_Password->setEnabled(false);
     ui->lineEdit_Name->setEnabled(false);
     setConfigPermissionOnUIEnabled(false);
+
+    switch (result)
+    {
+    case AddSuccess:
+        ui->label_ForDebug->setText("添加成功");
+        m_UserInfoList.append();
+        break;
+
+    }
+
+
 }
 
 void MainWindow::PermissionChanged(int id)
