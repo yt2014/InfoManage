@@ -61,7 +61,7 @@ bool CUserManage_UIControl::set_Permission(uint value,int shifting)
     if(shifting != -1)
     {
         uint permission_temp = m_currentRecord->permission;
-        permission_temp = permission_temp & (0<<shifting);
+        permission_temp = permission_temp & (~(0x03<<shifting));
         permission_temp = permission_temp | (value << shifting);
         m_currentRecord->permission = permission_temp;
         return true;

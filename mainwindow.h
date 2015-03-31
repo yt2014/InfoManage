@@ -52,6 +52,11 @@ private:
     UserInfoList m_UserInfoList;
     bool AccountTable_has_readout;
     CUserManage_UIControl * m_UserUIControl;
+
+private:
+    void UserUI_Init(void);//initialize the UI of User Manage
+    void DisplayPermission(uint permission);//display the detail of permission.
+    void setConfigPermissionOnUIEnabled(bool enable_or_not);
 };
 
 #endif // MAINWINDOW_H

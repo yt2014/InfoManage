@@ -7,7 +7,6 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
 
     //set database------
     //QSqlDatabase db = QSqlDatabase::addDatabase("QODBC","Test");
@@ -21,6 +20,7 @@ int main(int argc, char *argv[])
 
     if(login.exec()==QDialog::Accepted)
     {
+       MainWindow w;
        w.show();
        return a.exec();
     }

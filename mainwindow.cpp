@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    UserUI_Init();
+
 //for Account Table and related Tab
-    m_AccountTable = new CAccountTable("PersonInfo","Account");
+/*    m_AccountTable = new CAccountTable("PersonInfo","Account");
     AccountTable_has_readout = false;
     m_UserInfoList = UserInfoList();
     m_UserInfoTree = ui->treeWidget_Names;
@@ -37,10 +39,11 @@ MainWindow::MainWindow(QWidget *parent) :
     m_SergeantRadioGroup->addButton(ui->rB_SergeantReadOnly,1);
     m_SergeantRadioGroup->addButton(ui->rB_SergeantReadWrite,2);
 
-    connect(m_UserRadioGroup,SIGNAL(buttonClicked(int id)),this,SLOT(PermissionChanged(int id)));
+    connect(m_UserRadioGroup,SIGNAL(buttonClicked(int)),this,SLOT(PermissionChanged(int)));
+    connect(m_SergeantRadioGroup,SIGNAL(buttonClicked(int)),this,SLOT(PermissionChanged(int)));
+    connect(m_CadresRadioGroup,SIGNAL(buttonClicked(int)),this,SLOT(PermissionChanged(int)));
 
-
-    ui->tabWidget->setCurrentIndex(0);
+    ui->tabWidget->currentChanged(0);*/
 
 }
 
@@ -128,6 +131,24 @@ void MainWindow::showPermission(QTreeWidgetItem* treeItem,int column)
         //setting the current record and index in m_UserUIControl.
         m_UserUIControl->set_CurrentRecord(&(m_UserInfoList.at(n)));
         m_UserUIControl->set_index(n);
+
+        ui->lineEdit_Name->setText(m_UserInfoList.at(n).name);
+        ui->lineEdit_Password->setText(m_UserInfoList.at(n).password);
+
+        ui->lineEdit_Name->setEnabled(false);
+        ui->lineEdit_Password->setEnabled(false);
+
+        DisplayPermission(m_UserInfoList.at(n).permission);
+
+        setConfigPermissionOnUIEnabled(false);
+
+        m_UserUIControl->set_Status(Op_Idle);
+        ui->pushButton_AddUser->setVisible(true);
+        ui->pushButton_Delete->setVisible(true);
+        ui->pushButton_Update->setVisible(true);
+
+        ui->pushButton_Cancel->setVisible(false);
+        ui->pushButton_OK->setVisible(false);
     }
     ui->label_ForDebug->setText(strDisplay);
 
@@ -208,6 +229,9 @@ void MainWindow::on_pushButton_AddUser_clicked()
 
     ui->pushButton_Cancel->setVisible(true);
     ui->pushButton_OK->setVisible(true);
+    ui->lineEdit_Password->setEnabled(true);
+    ui->lineEdit_Name->setEnabled(true);
+    setConfigPermissionOnUIEnabled(true);
 }
 
 void MainWindow::on_pushButton_Update_clicked()
@@ -219,6 +243,10 @@ void MainWindow::on_pushButton_Update_clicked()
 
     ui->pushButton_Cancel->setVisible(true);
     ui->pushButton_OK->setVisible(true);
+
+    ui->lineEdit_Password->setEnabled(true);
+    setConfigPermissionOnUIEnabled(true);
+
 }
 
 
@@ -231,6 +259,9 @@ void MainWindow::on_pushButton_Delete_clicked()
 
      ui->pushButton_Cancel->setVisible(true);
      ui->pushButton_OK->setVisible(true);
+     ui->lineEdit_Password->setEnabled(false);
+     ui->lineEdit_Name->setEnabled(false);
+     setConfigPermissionOnUIEnabled(false);
 }
 
 void MainWindow::on_pushButton_Cancel_clicked()
@@ -242,6 +273,9 @@ void MainWindow::on_pushButton_Cancel_clicked()
 
     ui->pushButton_Cancel->setVisible(false);
     ui->pushButton_OK->setVisible(false);
+    ui->lineEdit_Password->setEnabled(false);
+    ui->lineEdit_Name->setEnabled(false);
+    setConfigPermissionOnUIEnabled(false);
 }
 
 
@@ -266,12 +300,16 @@ void MainWindow::on_pushButton_OK_clicked()
 
     ui->pushButton_Cancel->setVisible(false);
     ui->pushButton_OK->setVisible(false);
+
+    ui->lineEdit_Password->setEnabled(false);
+    ui->lineEdit_Name->setEnabled(false);
+    setConfigPermissionOnUIEnabled(false);
 }
 
 void MainWindow::PermissionChanged(int id)
 {
     uint value = id;//value of permission equals to id
-    //00:no permission; 01:readonly; 11:readwrite;
+    //00:no permission; 01:readonly; 10:readwrite;
     int shifting = -1;
     if(sender() == m_UserRadioGroup)
     {
@@ -289,4 +327,80 @@ void MainWindow::PermissionChanged(int id)
     m_UserUIControl->set_Permission(value,shifting);
 
 
+}
+
+void MainWindow::UserUI_Init(void)
+{
+    //initial the member values.
+    m_AccountTable = new CAccountTable("PersonInfo","Account");
+    AccountTable_has_readout = false;
+    m_UserInfoList = UserInfoList();
+    m_UserUIControl = new CUserManage_UIControl(m_AccountTable);
+
+    //for trees to display names.
+    m_UserInfoTree = ui->treeWidget_Names;
+    m_UserInfoTree->setHeaderHidden(true);
+    connect(m_UserInfoTree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(showPermission(QTreeWidgetItem*,int)));
+    m_NameTreeItems = 0;
+
+
+    //for radios to display and config the permission
+    m_UserRadioGroup = new QButtonGroup(ui->tab);
+    m_SergeantRadioGroup = new QButtonGroup(ui->tab);
+    m_CadresRadioGroup = new QButtonGroup(ui->tab);
+
+    m_CadresRadioGroup->addButton(ui->rB_CadresNo,0);
+    m_CadresRadioGroup->addButton(ui->rB_CadresReadOnly,1);
+    m_CadresRadioGroup->addButton(ui->rB_CadresReadWrite,2);
+
+    m_UserRadioGroup->addButton(ui->rB_UserNo,0);
+    m_UserRadioGroup->addButton(ui->rB_UserReadOnly,1);
+    m_UserRadioGroup->addButton(ui->rB_UserReadWrite,2);
+
+
+    m_SergeantRadioGroup->addButton(ui->rB_SergeantNo,0);
+    m_SergeantRadioGroup->addButton(ui->rB_SergeantReadOnly,1);
+    m_SergeantRadioGroup->addButton(ui->rB_SergeantReadWrite,2);
+
+    connect(m_UserRadioGroup,SIGNAL(buttonClicked(int)),this,SLOT(PermissionChanged(int)));
+    connect(m_SergeantRadioGroup,SIGNAL(buttonClicked(int)),this,SLOT(PermissionChanged(int)));
+    connect(m_CadresRadioGroup,SIGNAL(buttonClicked(int)),this,SLOT(PermissionChanged(int)));
+
+    //initial the buttons
+    m_UserUIControl->set_Status(Op_Idle);
+    ui->pushButton_AddUser->setVisible(true);
+    ui->pushButton_Delete->setVisible(true);
+    ui->pushButton_Update->setVisible(true);
+
+    ui->pushButton_Cancel->setVisible(false);
+    ui->pushButton_OK->setVisible(false);
+    ui->lineEdit_Password->setEnabled(false);
+    ui->lineEdit_Name->setEnabled(false);
+
+    setConfigPermissionOnUIEnabled(false);
+
+    ui->tabWidget->currentChanged(0);
+}
+
+void MainWindow::DisplayPermission(uint permission)
+{
+    uint per_user = (permission>>PERMISSION_SHIFT_USER) & 0x03;
+    uint per_sergeant =  (permission>>PERMISSION_SHIFT_SERGEANT) & 0x03;
+    uint per_cadres = (permission>>PERMISSION_SHIFT_CADRES) & 0x03;
+
+    m_UserRadioGroup->button(per_user)->setChecked(true);
+    m_SergeantRadioGroup->button(per_sergeant)->setChecked(true);
+    m_CadresRadioGroup->button(per_cadres)->setChecked(true);
+
+}
+
+void MainWindow::setConfigPermissionOnUIEnabled(bool enable_or_not)
+{
+    int i = 0;
+    for(i=0;i<3;i++)
+    {
+        m_UserRadioGroup->button(i)->setEnabled(enable_or_not);
+        m_SergeantRadioGroup->button(i)->setEnabled(enable_or_not);
+        m_CadresRadioGroup->button(i)->setEnabled(enable_or_not);
+    }
 }

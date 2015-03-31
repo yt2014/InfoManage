@@ -113,7 +113,7 @@ Operation_Result CAccountTable::addOneRecord(OneUserInfo RecordToStore)
 
 
 
-     if(db.isOpen())
+     if(!db.isOpen())
      {
         value_ret =  DataBaseNotOpen;
      }
@@ -130,7 +130,7 @@ Operation_Result CAccountTable::addOneRecord(OneUserInfo RecordToStore)
              QString strSQL = "insert into " + m_TableName + " (UserName,password,permission) values (\'"
                                                               + RecordToStore.name + "\',\'"
                                                               + RecordToStore.password + "\',"
-                                                              + RecordToStore.permission + ")";
+                                                              + QString::number(RecordToStore.permission) + ")";
             if(query.exec(strSQL))
             {
                 value_ret = Operation_Success;
@@ -151,7 +151,7 @@ Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
 {
     Operation_Result value_ret = UpdateFailed;
 
-    if(db.isOpen())
+    if(!db.isOpen())
     {
        value_ret =  DataBaseNotOpen;
     }
@@ -166,7 +166,7 @@ Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
             QSqlQuery query(db);
 
             QString strSQL = "update " + m_TableName + " set password = '" + RecordToUpdate.password
-                                                        +"',permission = " + RecordToUpdate.permission
+                                                        +"',permission = " + QString::number(RecordToUpdate.permission)
                                                         +" where UserName = '" + RecordToUpdate.name
                                                         +"'";
            if(query.exec(strSQL))
@@ -188,7 +188,7 @@ Operation_Result CAccountTable::DeleteOneRecord(OneUserInfo RecordToDelete)
 {
     Operation_Result value_ret = DeleteFailed;
 
-    if(db.isOpen())
+    if(!db.isOpen())
     {
        value_ret =  DataBaseNotOpen;
     }
