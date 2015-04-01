@@ -37,7 +37,7 @@ public:
     void setDatabaseAlias(QString DatabaseAlias);
     void setTableName(QString TableName);
     UserInfoList getListAllFromDatabase();
-    bool isUserNameExist(OneUserInfo RecordToStore);
+    int isUserNameExist(OneUserInfo RecordToStore);//if not exist, return value set to -1, else return value set to the index.
     bool openDatabase();
     Operation_Result addOneRecord(OneUserInfo RecordToStore);
     Operation_Result UpdateOneRecord(OneUserInfo RecordToUpdate);

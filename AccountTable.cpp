@@ -85,7 +85,7 @@ bool CAccountTable::openDatabase()
     }
 }
 
-bool CAccountTable::isUserNameExist(OneUserInfo RecordToStore)
+int CAccountTable::isUserNameExist(OneUserInfo RecordToStore)
 {
     QString strToFind =  RecordToStore.name;
 
@@ -98,11 +98,11 @@ bool CAccountTable::isUserNameExist(OneUserInfo RecordToStore)
     }
     if(i<num_records)
     {
-        return true;
+        return i;
     }
     else
     {
-        return false;
+        return -1;
     }
 
 }
@@ -119,7 +119,7 @@ Operation_Result CAccountTable::addOneRecord(OneUserInfo RecordToStore)
      }
      else
      {
-         if(isUserNameExist(RecordToStore))
+         if(isUserNameExist(RecordToStore) != -1)
          {
              value_ret = AddExistRecord;
          }
@@ -152,13 +152,16 @@ Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
 {
     Operation_Result value_ret = UpdateFailed;
 
+    int index_to_update;
+
     if(!db.isOpen())
     {
        value_ret =  DataBaseNotOpen;
     }
     else
     {
-        if(!isUserNameExist(RecordToUpdate))
+        index_to_update = isUserNameExist(RecordToUpdate);
+        if(index_to_update == -1)
         {
             value_ret = UpdateFailed;
         }
@@ -173,6 +176,8 @@ Operation_Result CAccountTable::UpdateOneRecord(OneUserInfo RecordToUpdate)
            if(query.exec(strSQL))
            {
                value_ret = UpdateSuccess;
+               m_UserInfoList.removeAt(index_to_update);
+               m_UserInfoList.insert(index_to_update,RecordToUpdate);
            }
            else
            {
@@ -189,13 +194,16 @@ Operation_Result CAccountTable::DeleteOneRecord(OneUserInfo RecordToDelete)
 {
     Operation_Result value_ret = DeleteFailed;
 
+    int index_to_delete;
+
     if(!db.isOpen())
     {
        value_ret =  DataBaseNotOpen;
     }
     else
     {
-        if(!isUserNameExist(RecordToDelete))
+        index_to_delete = isUserNameExist(RecordToDelete);
+        if(index_to_delete == -1)
         {
             value_ret = DeleteNotExistRecord;
         }
@@ -208,6 +216,7 @@ Operation_Result CAccountTable::DeleteOneRecord(OneUserInfo RecordToDelete)
            if(query.exec(strSQL))
            {
                value_ret = DeleteSuccess;
+               m_UserInfoList.removeAt(index_to_delete);
            }
            else
            {

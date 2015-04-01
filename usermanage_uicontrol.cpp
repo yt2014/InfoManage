@@ -110,7 +110,7 @@ Operation_Result CUserManage_UIControl::ProcessOKEvent()
         break;
     case Op_Delete:
     {
-        m_accountTable->DeleteOneRecord(*m_currentRecord);
+        ret = m_accountTable->DeleteOneRecord(*m_currentRecord);
     }
         break;
     default:
