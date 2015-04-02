@@ -24,7 +24,8 @@ HEADERS  += mainwindow.h \
     dlglogin.h \
     AccountTable.h \
     usermanage_uicontrol.h \
-    DatabaseTable.h
+    DatabaseTable.h \
+    sergeantabstruct.h
 
 FORMS    += mainwindow.ui \
     dlglogin.ui
