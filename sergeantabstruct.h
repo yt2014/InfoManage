@@ -8,20 +8,29 @@
 #include <QString>
 #include <QDate>
 
-class CSergeant_Abstruct_Member
+
+typedef struct
+{
+   QString m_Name;
+   uint m_IndicateNumber;
+   uint m_LatestTotalScore;
+   QString m_Department;
+   QDate m_AccessDate;
+}Sergeant_Common;
+
+
+class CSergeant_Common
 {
 private:
-    QString m_Name;
-    uint m_IndicateNumber;
-    uint m_LatestTotalScore;
-    QString m_Department;
-    QDate m_AccessDate;
+     Sergeant_Common m_Ser_Common;
 public:
-    void setLatestTotalScore(uint score);
-    uint getLatestTotalScore(void);
-    void setLastAccessDate(QDate AccessDate);
-    CSergeant_Abstruct_Member();
-    virtual ~CSergeant_Abstruct_Member();
+
+     QSqlDatabase db;
+
+    CSergeant_Common();
+    CSergeant_Common(Sergeant_Common);
+    virtual ~CSergeant_Common();
+    virtual void Store_Common();
 };
 
 #endif // SERGEANTABSTRUCT_H

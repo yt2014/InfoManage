@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     dlglogin.cpp \
     AccountTable.cpp \
     usermanage_uicontrol.cpp \
-    DatabaseTable.cpp
+    DatabaseTable.cpp \
+    sergeantabstruct.cpp
 
 HEADERS  += mainwindow.h \
     dlglogin.h \
